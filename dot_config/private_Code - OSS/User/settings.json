@@ -1,0 +1,10 @@
+{
+    "workbench.colorTheme": "Night Owl",
+    "editor.cursorStyle": "underline",
+    "editor.fontFamily": "'Fira Code', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "files.autoSave": "afterDelay",
+    "editor.fontWeight": null,
+    "editor.fontLigatures": true,
+    "window.openFilesInNewWindow": "default",
+    "window.zoomLevel": 0
+}

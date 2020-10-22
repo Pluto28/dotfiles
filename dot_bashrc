@@ -1,0 +1,58 @@
+#
+# ~/.bashrc
+#
+
+# file with prompt configuration
+source $HOME/prompt.sh
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Set aliases
+alias ls='ls --color=auto'
+
+alias grep='grep --color=always'
+
+complete -cf man which
+
+# color scheme to be used with ls
+#export LS_COLORS="di=1;59:ln=35:so=32:pi=33:ex=31:bd=34;46:cd=34;43:su=30;41:sg=30;46:tw=30;42:ow=30;43"
+#export LS_COLORS
+
+# bin to nvim
+alias vim='/usr/bin/nvim'
+
+# Set the PS1 variable to define the prompt
+#export PS1="\[\e[38;5;242m[\t] (tty: \l) \e[38;5;30m\u\e[38;5;31m@\e[38;5;25m\h \e[1m\e[38;5;95m(\w)\]\e[38;5;242m \n\$: "
+
+
+# ctrl-s will no longer freeze the terminal
+stty erase "^?"
+
+# source vte.sh
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi
+
+# some basic variables for configuring user basic things
+
+man() {
+	LESS_TERMCAP_md=$'\e[01;31m' \
+	LESS_TERMCAP_me=$'\e[0m' \
+	LESS_TERMCAP_se=$'\e[0m' \
+	LESS_TERMCAP_so=$'\e[01;44;33m' \
+	LESS_TERMCAP_ue=$'\e[0m' \
+	LESS_TERMCAP_us=$'\e[01;32m' \
+	command man "$@"
+}
+
+# make sure just one ssh-agent runs at time
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+    ssh-agent -t 1h > "$XDG_RUNTIME_DIR/ssh-agent.env"
+fi
+if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    source "$XDG_RUNTIME_DIR/ssh-agent.env" >/dev/null
+fi
+
+# start keychain
+eval $( keychain --agents ssh --eval id_rsa --quiet )

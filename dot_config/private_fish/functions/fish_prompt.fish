@@ -46,7 +46,7 @@ function fish_prompt
     end
 
     set_color $retc
-    echo -n '┬─'
+    echo -n '╭─'
     set_color -o green
     echo -n [
     if test "$USER" = root -o "$USER" = toor
